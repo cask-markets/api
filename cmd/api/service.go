@@ -53,9 +53,7 @@ func main() {
 
 	err := c.Build(
 		ConfigBuilder.Local,
-		ConfigBuilder.Database,
-		ConfigBuilder.Keycloak,
-		ConfigBuilder.Influx,
+		ConfigBuilder.Mongo,
 		ConfigBuilder.Bugfixes,
 		ConfigBuilder.Clerk,
 		ConfigBuilder.Resend,
