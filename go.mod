@@ -1,8 +1,8 @@
 module github.com/cask-warehouse/api
 
-go 1.23
+go 1.24
 
-toolchain go1.23.3
+toolchain go1.24.1
 
 require (
 	github.com/Nerzal/gocloak/v13 v13.9.0 // indirect
