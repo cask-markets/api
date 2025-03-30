@@ -109,8 +109,9 @@ func (s *Service) startHTTP(errChan chan error) {
 	//mux.HandleFunc("PUT /company/upgrade", company.NewSystem(s.Config).UpgradeCompany)
 
 	// General
-	mux.HandleFunc(fmt.Sprintf("%s /health", http.MethodGet), healthcheck.HTTP)
-	mux.HandleFunc(fmt.Sprintf("%s /probe", http.MethodGet), probe.HTTP)
+	mux.HandleFunc("GET /health", healthcheck.HTTP)
+	mux.HandleFunc("GET /probe", probe.HTTP)
+	mux.HandleFunc("GET /", probe.HTTP)
 	//mux.HandleFunc("GET /pricing", pricing.NewSystem(s.Config).GetGeneralPricing)
 	//mux.HandleFunc("/uploadthing", user.NewSystem(s.Config).UploadThing)
 	//mux.HandleFunc("/events/keycloak", general.NewSystem(s.Config).KeycloakEvents)
@@ -135,7 +136,7 @@ func (s *Service) startHTTP(errChan chan error) {
 		"x-flags-timestamp",
 	)
 	mw.AddAllowedMethods(http.MethodGet, http.MethodPost, http.MethodPut, http.MethodDelete, http.MethodOptions, http.MethodPatch)
-	mw.AddAllowedOrigins("https://www.casks.market", "https://casks.market", "*")
+	mw.AddAllowedOrigins("https://www.casks.markets", "https://casks.markets", "*")
 	if s.Config.Local.Development {
 		mw.AddAllowedOrigins("http://localhost:3000", "http://localhost:5173", "*")
 	}
