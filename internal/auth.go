@@ -78,8 +78,8 @@ func (s *Service) Auth(next http.Handler) http.Handler {
 		//	return
 		//}
 
-		w.Header().Set("Content-Type", "application/json")
-		_, _ = w.Write([]byte(`{"intervalAllowed":900, "flags": []}`))
+		//w.Header().Set("Content-Type", "application/json")
+		//_, _ = w.Write([]byte(`{"intervalAllowed":900, "flags": []}`))
 		return
 	})
 }

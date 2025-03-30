@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/bugfixes/go-bugfixes/logs"
 	"github.com/bugfixes/go-bugfixes/middleware"
+	"github.com/cask-warehouse/api/internal/warehouse"
 	ConfigBuilder "github.com/keloran/go-config"
 	"github.com/keloran/go-healthcheck"
 	"github.com/keloran/go-probe"
@@ -34,6 +35,9 @@ func (s *Service) Start() error {
 
 func (s *Service) startHTTP(errChan chan error) {
 	mux := http.NewServeMux()
+
+	// Warehouse
+	mux.HandleFunc("GET /warehouses", warehouse.NewSystem(s.Config).GetWarehouses)
 
 	// Projects
 	//mux.HandleFunc("GET /projects", project.NewSystem(s.Config).GetProjects)
@@ -125,7 +129,7 @@ func (s *Service) startHTTP(errChan chan error) {
 	mw.AddMiddleware(middleware.SetupLogger(middleware.Error).Logger)
 	mw.AddMiddleware(middleware.RequestID)
 	mw.AddMiddleware(middleware.Recoverer)
-	mw.AddMiddleware(s.Auth)
+	//mw.AddMiddleware(s.Auth)
 	mw.AddMiddleware(mw.CORS)
 	mw.AddAllowedHeaders(
 		"x-agent-id",
